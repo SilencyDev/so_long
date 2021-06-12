@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 13:26:51 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 14:49:43 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:36:18 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	is_map_valid(t_data *data)
 	}
 	if (data->nb_player != 1)
 		ft_error("number of player isn't 1", data);
+	if (data->collect < 1)
+		ft_error("number of collectible is inferior to 1", data);
 	return (1);
 }
 

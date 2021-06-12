@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:04:10 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 14:33:10 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:52:47 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_ber(char *s, t_data *data)
 	i = 0;
 	while (s[i])
 		i++;
-	if (i >= 5 && s[i - 1] == 'r' && s[i - 2] == 'e'
+	if (i >= 4 && s[i - 1] == 'r' && s[i - 2] == 'e'
 		&& s[i - 3] == 'b' && s[i - 4] == '.')
 		return (1);
 	ft_error("The argument don't end with .ber", data);

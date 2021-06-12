@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 12:06:15 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 14:53:41 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:54:36 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int argc, char **argv)
 			ft_error("This is a directory, not a .ber file", &data);
 		fd = open(argv[1], O_RDONLY);
 		if (fd == -1)
-			ft_error(".ber invalid", &data);
+			ft_error("map invalid or does not exist", &data);
 		ft_parsing_setting(&data, fd);
 		fd = open(argv[1], O_RDONLY);
 		ft_parsing_map(&data, fd);
@@ -86,6 +86,6 @@ int	main(int argc, char **argv)
 			ft_error("map is invalid", &data);
 		ft_mlx(&data);
 	}
-	ft_error("wrong arguments", NULL);
+	ft_error("wrong arguments", &data);
 	return (0);
 }

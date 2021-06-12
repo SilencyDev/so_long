@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:14:29 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 14:52:16 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:49:54 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ int	ft_display(t_data *data)
 	int	offset;
 
 	offset = 1;
-	data->i_y = (int)(data->y_player / 12);
+	data->i_y = (int)(data->y_player / 13);
 	data->i_x = (int)(data->x_player / 18);
 	y = 0;
 	x = 0;
 	ft_print_zone(data, x, y, offset);
 	ft_player(data, data->x_player - (data->i_x * 18) + offset,
-		data->y_player - (data->i_y * 12) + offset, 0x00FFFF00);
+		data->y_player - (data->i_y * 13) + offset, 0x00FFFF00);
 	ft_move(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);

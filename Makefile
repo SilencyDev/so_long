@@ -6,7 +6,7 @@
 #    By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/11 11:47:02 by kmacquet          #+#    #+#              #
-#    Updated: 2021/06/12 15:06:33 by kmacquet         ###   ########.fr        #
+#    Updated: 2021/06/12 15:16:42 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
 
 $(NAME):$(OBJS)
-	$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -g -fsanitize=address
 
 clean:
 	$(RM) $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 12:07:45 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 15:13:48 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:20:26 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include "mlx.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
 # define SIZE 40
 # define BOR 2
 # define FORWARD 13
