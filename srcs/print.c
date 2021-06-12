@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:55:40 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 19:24:07 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 12:44:13 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,49 +62,51 @@ void		ft_player(t_data *data, int x, int y, int color)
 	}
 }
 
-int		ft_minimap(t_data *data)
+void	ft_print_zone(t_data *data, int y, int x, int offset)
 {
-	int	y;
-	int	x;
-	int	offset;
-
-	y = 0;
+	while (y < data->height - 1)
+	{
+		x = 0;
+		while (x < data->width - 1)
+			my_mlx_pixel_put(data, x++, y, 0x00000000);
+		y++;
+	}
 	x = 0;
-	offset = 1;
-	ft_move(data);
-	if (data->map[data->y_player][data->x_player] == 'C')
+	y = 0;
+	while (data->mymap > y + (data->i_y * 12) && data->map[y + (data->i_y * 12)][x + (data->i_x * 18)] && x < 18 && y < 12)
 	{
-		data->collect -= 1;
-		data->map[data->y_player][data->x_player] = '0';
-	}
-	if (data->map[data->y_player][data->x_player] == 'E')
-	{
-		if (!data->collect)
+		while (data->mxmap > x + (data->i_x * 18) && data->map[y + (data->i_y * 12)][x + (data->i_x * 18)] && x < 18 && y < 12)
 		{
-			ft_putstr_fd("Congratulation ! Game Over !", 1);
-			ft_exit(data, 0);
-		}
-		if (data->collect)
-			ft_putstr_fd("Not enough collectible !\n", 1);
-	}
-	while (data->mymap > y && data->map[y][x])
-	{
-		while (data->mxmap > x && data->map[y][x])
-		{
-			if (data->map[y][x] == 'E')
+			if (data->map[y + (data->i_y * 12)][x + (data->i_x * 18)] == 'E')
 				ft_square(data, x + offset, y + offset, 0xF900FF00);
-			if (data->map[y][x] == '0')
+			if (data->map[y + (data->i_y * 12)][x + (data->i_x * 18)] == '0')
 				ft_square(data, x + offset, y + offset, 0xF9FF00FF);
-			if (data->map[y][x] == 'C')
+			if (data->map[y + (data->i_y * 12)][x + (data->i_x * 18)] == 'C')
 				ft_square(data, x + offset, y + offset, 0xF9FF0000);
-			if (data->map[y][x] == '1')
+			if (data->map[y + (data->i_y * 12)][x + (data->i_x * 18)] == '1')
 				ft_square(data, x + offset, y + offset, 0x00FFFFFF);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	ft_player(data, data->x_player + offset, data->y_player + offset, 0x00FFFF00);
+}
+
+int		ft_display(t_data *data)
+{
+	int	y;
+	int	x;
+	int	offset;
+
+	offset = 1;
+	data->i_y = (int)(data->y_player / 12);
+	data->i_x = (int)(data->x_player / 18);
+	y = 0;
+	x = 0;
+	ft_print_zone(data, x, y, offset);
+	ft_player(data, data->x_player - (data->i_x * 18) + offset,
+			data->y_player - (data->i_y * 12) + offset, 0x00FFFF00);
+	ft_move(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }

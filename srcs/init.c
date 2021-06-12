@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 13:25:40 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 19:16:01 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 11:16:36 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_init(t_data *data)
 {
+	data->i_x = 0;
+	data->i_y = 0;
+	data->nb_move = 0;
 	data->left = 0;
 	data->rleft = 0;
 	data->right = 0;
@@ -39,8 +42,6 @@ void	ft_init_ptr(t_data *data)
 	data->mlx_ptr = NULL;
 	data->mlx_win = NULL;
 	data->map = NULL;
-	data->c = 0;
-	data->f = 0;
 	data->parsing = 0;
 	data->map_set = 0;
 }

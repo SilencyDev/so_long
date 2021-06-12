@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 12:07:45 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 19:18:41 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 11:16:43 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ typedef struct	s_color
 
 typedef struct	s_data
 {
+	int			i_x;
+	int			i_y;
+	int			nb_move;
 	int			collect;
 	int			map_set;
 	int			parsing;
 	int			n;
 	int			offset;
-	int			f;
-	int			c;
 	void		*mlx_ptr;
 	void		*mlx_win;
 	void		*img;
@@ -101,7 +102,7 @@ char	*ft_strchr(char *s, int c);
 void	ft_error(char *s, t_data *data);
 void	ft_square(t_data *data, int x, int y, int color);
 void	ft_player(t_data *data, int x, int y, int color);
-int		ft_minimap(t_data *data);
+int		ft_display(t_data *data);
 int		count_max_map(char *line, t_data *data, int y);
 int		ft_exit(t_data *data, int i);
 void	ft_exit2(t_data *data, int i);
@@ -111,5 +112,6 @@ void	ft_move_b(t_data *data);
 void	ft_move_r(t_data *data);
 void	ft_move_l(t_data *data);
 int		is_ber(char *s, t_data *data);
+void	ft_putnum(int nb);
 
 #endif

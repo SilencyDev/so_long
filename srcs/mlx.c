@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:14:29 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 19:08:13 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 10:21:34 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ void	ft_mlx(t_data *data)
 	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
 	// mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx_win, 17, 0, ft_exit, data);
-	mlx_loop_hook(data->mlx_ptr, ft_minimap, data);
+	mlx_loop_hook(data->mlx_ptr, ft_display, data);
 	mlx_loop(data->mlx_ptr);
 }

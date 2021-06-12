@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:04:10 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 18:55:43 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 10:41:05 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,15 @@ int		is_ber(char *s, t_data *data)
 		return (1);
 	ft_error("The argument don't end with .ber", data);
 	return (0);
+}
+
+void	ft_putnum(int nb)
+{
+	char	c;
+
+	c = 0;
+	if (nb > 9)
+		ft_putnum(nb / 10);
+	c = nb % 10 + '0';
+	write(STDOUT_FILENO, &c, 1);
 }
