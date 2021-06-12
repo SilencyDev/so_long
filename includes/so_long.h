@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 12:07:45 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 11:16:43 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:13:48 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #  define BUFFER_SIZE 1
 # endif
 # define SIZE 40
-# define BORDER 2
+# define BOR 2
 # define FORWARD 13
 # define LEFT 0
 # define BACKWARD 1
@@ -33,7 +33,7 @@
 # define RRIGHT 124
 # define ESCAPE 53
 
-typedef struct	s_color
+typedef struct s_color
 {
 	int			r;
 	int			g;
@@ -41,7 +41,7 @@ typedef struct	s_color
 	int			rgb;
 }				t_color;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int			i_x;
 	int			i_y;
@@ -113,5 +113,8 @@ void	ft_move_r(t_data *data);
 void	ft_move_l(t_data *data);
 int		is_ber(char *s, t_data *data);
 void	ft_putnum(int nb);
+void	ft_print_zone(t_data *data, int y, int x, int offset);
+void	game_message(t_data *data);
+void	reset_key(t_data *data);
 
 #endif

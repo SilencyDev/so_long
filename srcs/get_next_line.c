@@ -6,24 +6,13 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:44:48 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 16:45:38 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:13:13 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char				*ft_memalloc(size_t size)
-{
-	void	*ptr;
-
-	ptr = NULL;
-	if (!(ptr = malloc(size)))
-		return (NULL);
-	ft_memset(ptr, 0, size);
-	return (ptr);
-}
-
-void				*ft_memset(void *s, int c, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
 {
 	unsigned char	*ptr;
 
@@ -33,7 +22,7 @@ void				*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-int					ft_memdel(void **ptr)
+int	ft_memdel(void **ptr)
 {
 	if (*ptr)
 	{
@@ -45,31 +34,54 @@ int					ft_memdel(void **ptr)
 	return (0);
 }
 
-int					get_next_line(int fd, char **line)
+int	ft_strlen(char *s)
 {
-	ssize_t		r;
-	char		bf[BUFFER_SIZE + (r = 1)];
-	static char	*p_l = NULL;
-	char		*tmp;
+	int		n;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
+	n = 0;
+	if (!s)
+		return (0);
+	while (s[n])
+		n++;
+	return (n);
+}
+
+void	set_tmp(char *tmp, char **line, int l, char c)
+{
+	int	i;
+
+	i = -1;
+	while (++i < l - 2)
+		tmp[i] = (*line)[i];
+	tmp[i] = c;
+	tmp[i + 1] = 0;
+	free(*line);
+	*line = tmp;
+}
+
+int	get_next_line(int fd, char **line)
+{
+	int		l;
+	int		r;
+	char	c;
+	char	*tmp;
+
+	l = 1;
+	*line = malloc(l);
+	if (!*line)
 		return (-1);
-	p_l == NULL ? p_l = ft_memalloc(1) : NULL;
-	while (!ft_strchr(p_l, '\n') && (r = read(fd, bf, BUFFER_SIZE)) > 0)
+	(*line)[0] = 0;
+	r = read(fd, &c, 1);
+	while (r && l++ && c != '\n')
 	{
-		bf[r] = '\0';
-		tmp = ft_strjoin(p_l, bf);
-		ft_memdel((void **)&p_l);
-		p_l = tmp;
+		tmp = malloc(l);
+		if (!tmp)
+		{
+			free(*line);
+			return (-1);
+		}
+		set_tmp(tmp, line, l, c);
+		r = read(fd, &c, 1);
 	}
-	if (r == 0)
-		*line = ft_strdup(p_l);
-	else if (r > 0)
-		*line = ft_substr(p_l, 0, (ft_strchr(p_l, '\n') - p_l));
-	else
-		return (-1);
-	tmp = ft_strdup(p_l + (ft_strlen(*line) + (r > 0 ? +1 : +0)));
-	ft_memdel((void **)&p_l);
-	p_l = tmp;
-	return (r == 0 ? 0 * ft_memdel((void **)&p_l) : 1);
+	return (r);
 }

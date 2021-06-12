@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 16:04:10 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/12 10:41:05 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 14:33:10 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int		is_ber(char *s, t_data *data)
+int	is_ber(char *s, t_data *data)
 {
 	int	i;
 

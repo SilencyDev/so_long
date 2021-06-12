@@ -6,19 +6,20 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 13:26:51 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/06/11 19:15:37 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/12 14:49:43 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int			set_map(char *line, t_data *data, int y)
+int	set_map(char *line, t_data *data, int y)
 {
 	int	x;
 
 	x = 0;
 	data->map[y] = NULL;
-	if (!(data->map[y] = malloc((int)data->mxmap + 1)))
+	data->map[y] = malloc((int)data->mxmap + 1);
+	if (!data->map[y])
 		ft_error("Malloc of row's map failed", data);
 	while (*line)
 		data->map[y][x++] = *line++;
@@ -26,7 +27,7 @@ int			set_map(char *line, t_data *data, int y)
 	return (++y);
 }
 
-void		ft_parsing_map(t_data *data, int fd)
+void	ft_parsing_map(t_data *data, int fd)
 {
 	int		ret;
 	int		y;
@@ -34,7 +35,8 @@ void		ft_parsing_map(t_data *data, int fd)
 
 	ret = 1;
 	y = 0;
-	if (!(data->map = malloc(sizeof(char*) * (int)data->mymap)))
+	data->map = malloc(sizeof(char *) * (int)data->mymap);
+	if (!data->map)
 		ft_error("Malloc of map failed", data);
 	while (ret != 0)
 	{
@@ -45,22 +47,27 @@ void		ft_parsing_map(t_data *data, int fd)
 	close(fd);
 }
 
-void		ft_parsing_setting(t_data *data, int fd)
+int	ft_check(t_data *data, int x, int y)
 {
-	int		ret;
-	char	*l;
-
-	ret = 1;
-	while (ret != 0)
+	if (!is_charset(data->map[y][x], "01CEP"))
+		return (0);
+	if (is_charset(data->map[y][x], "0CEP")
+		&& (y - 1 < 0 || y + 1 == data->mymap
+		|| x - 1 < 0 || x + 1 == data->mxmap))
+		return (0);
+	if (data->map[y][x] == 'C')
+		data->collect += 1;
+	if (data->map[y][x] == 'P')
 	{
-		ret = get_next_line(fd, &l) > 0;
-		data->mymap = count_max_map(l, data, data->mymap);
-		ft_memdel((void **)&l);
+		data->map[y][x] = '0';
+		data->x_player = x;
+		data->y_player = y;
+		data->nb_player += 1;
 	}
-	close(fd);
+	return (1);
 }
 
-int			is_map_valid(t_data *data)
+int	is_map_valid(t_data *data)
 {
 	int	x;
 	int	y;
@@ -71,21 +78,8 @@ int			is_map_valid(t_data *data)
 	{
 		while (x < data->mxmap && data->map[y][x])
 		{
-			if (!is_charset(data->map[y][x], "01CEP"))
+			if (!ft_check(data, x, y))
 				return (0);
-			if (is_charset(data->map[y][x], "0CEP")
-				&& (y - 1 < 0 || y + 1 == data->mymap
-				|| x - 1 < 0 || x + 1 == data->mxmap))
-				return (0);
-			if (data->map[y][x] == 'C')
-				data->collect += 1;
-			if (data->map[y][x] == 'P')
-			{
-				data->map[y][x] = '0';
-				data->x_player = x;
-				data->y_player = y;
-				data->nb_player += 1;
-			}
 			x++;
 		}
 		if (x != data->mxmap)
@@ -98,7 +92,7 @@ int			is_map_valid(t_data *data)
 	return (1);
 }
 
-int		count_max_map(char *line, t_data *data, int y)
+int	count_max_map(char *line, t_data *data, int y)
 {
 	int	x;
 
@@ -106,6 +100,7 @@ int		count_max_map(char *line, t_data *data, int y)
 	data->map_set = 1;
 	while (line[++x])
 		;
-	data->mxmap = data->mxmap < x ? x : data->mxmap;
+	if (data->mxmap < x)
+		data->mxmap = x;
 	return (++y);
 }
